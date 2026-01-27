@@ -17,6 +17,8 @@ model Categories {
   id            String      @id @default(uuid())
   categorieName String
   medicines     Medicines[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Medicines {
@@ -33,6 +35,8 @@ model Medicines {
   categorie    Categories @relation(fields: [categorieId], references: [id])
   orders       Orders[]
   reviews      Reviews[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Orders {
@@ -44,7 +48,8 @@ model Orders {
   shippindAddress String
   totalAmount     Int
   status          orderStatus @default(Pending)
-
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
 model Reviews {
@@ -55,6 +60,8 @@ model Reviews {
   product    Medicines @relation(fields: [productId], references: [id])
   rating     Int
   comment    String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model User {
