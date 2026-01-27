@@ -1,6 +1,6 @@
 
 
-import { prisma } from "../lib/prisma"
+import { prisma } from "./lib/prisma"
 import { app } from "./app"
 
 async function main() {
