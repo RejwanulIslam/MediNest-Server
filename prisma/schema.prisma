@@ -28,8 +28,33 @@ model Medicines {
   detels       String
   manufacturer String
   sellerId     String
+  seller       User       @relation(fields: [sellerId], references: [id])
   categorieId  String
   categorie    Categories @relation(fields: [categorieId], references: [id])
+  orders       Orders[]
+  reviews       Reviews[]
+}
+
+model Orders {
+  id              String    @id @default(uuid())
+  customerId      String
+  customer        User      @relation(fields: [customerId], references: [id])
+  productId       String
+  product         Medicines @relation(fields: [productId], references: [id])
+  shippindAddress String
+  totalAmount     Int
+  status orderStatus @default(Pending)
+
+}
+
+model Reviews {
+  id              String    @id @default(uuid())
+  customerId      String
+  customer        User      @relation(fields: [customerId], references: [id])
+  productId       String
+  product         Medicines @relation(fields: [productId], references: [id])
+  rating Int
+  comment String?
 }
 
 model User {
@@ -43,7 +68,10 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  role String? @default("USER")
+  role      String?     @default("USER")
+  medicines Medicines[]
+  orders    Orders[]
+  reviews    Reviews[]
 
   @@unique([email])
   @@map("user")
@@ -95,4 +123,12 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+
+enum orderStatus {
+  Pending
+  Processing
+  Shipped
+  Delivered
 }
