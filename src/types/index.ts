@@ -1,0 +1,1 @@
+export type{MedData}from "./medicine.types"

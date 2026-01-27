@@ -2,15 +2,24 @@ import { Request, Response } from "express"
 import { medicineService } from "./medicine.service"
 
 
-const addCatagoty = async (req: Request, res: Response) => {
-    const { categorieName } = req.body
-    if (!categorieName || typeof categorieName !== 'string') {
-        res.send('place enter your catagory name')
-    }
-    const result = await medicineService.addCatagoty(categorieName)
+const addMedicine = async (req: Request, res: Response) => {
+    const data = req.body
+    const result = await medicineService.addMedicine(data)
+    res.send(result)
+}
+
+const getAllMedicine = async (req: Request, res: Response) => {
+    const result = await medicineService.getAllMedicine()
+    res.send(result)
+}
+const getMedicineByID = async (req: Request, res: Response) => {
+    const {id}=req.params
+    const result = await medicineService.getMedicineByID(id as string)
     res.send(result)
 }
 
 export const medicineControler = {
-    addCatagoty
+    addMedicine,
+    getAllMedicine,
+    getMedicineByID
 }

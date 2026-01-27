@@ -5,14 +5,9 @@ import { medicineControler } from "./medicine.controler";
 const router=Router()
 
 
-router.post('/addmedicines',async(req:Request,res:Response)=>{
-  const data=req.body
-  const result=await prisma.medicines.create({
-    data
-  })
-  res.send(result)
-})
+router.post('/api/seller/medicines',medicineControler.addMedicine)
+router.get('/api/medicines',medicineControler.getAllMedicine)
+router.get('/api/medicines/:id',medicineControler.getMedicineByID)
 
-router.post('/addcatagoty',medicineControler.addCatagoty)
 
 export const medicineRouter=router
