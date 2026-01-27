@@ -9,6 +9,15 @@ export const auth = betterAuth({
     
   }),
   trustedOrigins:["http://localhost:5000"],
+     user: {
+       additionalFields: {
+          role: {
+              type: "string",
+              defaultValue:"USER",
+              required:false
+            } 
+        }
+    },
   
     emailAndPassword: { 
     enabled: true, 
