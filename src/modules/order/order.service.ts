@@ -31,62 +31,56 @@ const getAllOrder = async () => {
 }
 
 
-// const getMedicineByID = async (id: string) => {
-//    try {
-//      const result = await prisma.medicines.findUnique({
-//         where: {
-//             id
-//         }
-//     })
-//     return result
-//    } catch (error:any) {
-//     return {error:error.message}
-//    }
-// }
+const getOrderByID = async (id: string) => {
+   try {
+     const result = await prisma.orders.findUnique({
+        where: {
+            id
+        }
+    })
+    return result
+   } catch (error:any) {
+    return {error:error.message}
+   }
+}
 
 
-// const updateMedicine = async (id: string, data: MedData) => {
-//     const { medicineName, price, image, stock, detels, manufacturer } = data
+const updateOrder = async (id: string, status:orderStatus) => {
 
-//   try {
-//       const result = await prisma.medicines.update({
-//         where: {
-//             id
-//         },
-//         data: {
-//             medicineName,
-//             price,
-//             image: image,
-//             stock,
-//             detels,
-//             manufacturer,
-//         }
-//     })
-//     return result
-//   } catch (error:any) {
-//     return {error:error.message}
-//    }
-// }
+  try {
+      const result = await prisma.orders.update({
+        where: {
+            id
+        },
+        data: {
+            status
+        }
+    })
+    return result
+  } catch (error:any) {
+    return {error:error.message}
+   }
+}
 
-// const deleteMedicine = async (id: string) => {
-//    try {
-//      const result = await prisma.medicines.delete({
-//         where: {
-//             id
-//         }
-//     })
-//     return result
-//    } catch (error:any) {
-//     return {error:error.message}
-//    }
-// }
+const deleteOrder = async (id: string) => {
+   try {
+     const result = await prisma.orders.delete({
+        where: {
+            id
+        }
+    })
+    return result
+   } catch (error:any) {
+    return {error:error.message}
+   }
+}
 
 
 
 export const orderService = {
     addOrder,
     getAllOrder,
-    // getMedicineByID,
-    // updateMedicine,
-    // deleteMedicine,
+    getOrderByID,
+    updateOrder,
+    deleteOrder
 }
