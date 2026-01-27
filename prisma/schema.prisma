@@ -32,29 +32,29 @@ model Medicines {
   categorieId  String
   categorie    Categories @relation(fields: [categorieId], references: [id])
   orders       Orders[]
-  reviews       Reviews[]
+  reviews      Reviews[]
 }
 
 model Orders {
-  id              String    @id @default(uuid())
+  id              String      @id @default(uuid())
   customerId      String
-  customer        User      @relation(fields: [customerId], references: [id])
+  customer        User        @relation(fields: [customerId], references: [id])
   productId       String
-  product         Medicines @relation(fields: [productId], references: [id])
+  product         Medicines   @relation(fields: [productId], references: [id])
   shippindAddress String
   totalAmount     Int
-  status orderStatus @default(Pending)
+  status          orderStatus @default(Pending)
 
 }
 
 model Reviews {
-  id              String    @id @default(uuid())
-  customerId      String
-  customer        User      @relation(fields: [customerId], references: [id])
-  productId       String
-  product         Medicines @relation(fields: [productId], references: [id])
-  rating Int
-  comment String?
+  id         String    @id @default(uuid())
+  customerId String
+  customer   User      @relation(fields: [customerId], references: [id])
+  productId  String
+  product    Medicines @relation(fields: [productId], references: [id])
+  rating     Int
+  comment    String?
 }
 
 model User {
@@ -71,7 +71,9 @@ model User {
   role      String?     @default("USER")
   medicines Medicines[]
   orders    Orders[]
-  reviews    Reviews[]
+  reviews   Reviews[]
+
+  status String? @default("unban")
 
   @@unique([email])
   @@map("user")
@@ -124,7 +126,6 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
-
 
 enum orderStatus {
   Pending

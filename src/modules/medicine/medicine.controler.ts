@@ -40,9 +40,20 @@ const updateMedicine = async (req: Request, res: Response) => {
     }
 }
 
+const deleteMedicine = async (req: Request, res: Response) => {
+  try {
+     const { id } = req.params
+    const result = await medicineService.deleteMedicine(id as string)
+    res.send(result) 
+  } catch (error: any) {
+       res.send({error:error.message}) 
+    }
+}
+
 export const medicineControler = {
     addMedicine,
     getAllMedicine,
     getMedicineByID,
-    updateMedicine
+    updateMedicine,
+    deleteMedicine,
 }

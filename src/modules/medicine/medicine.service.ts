@@ -70,6 +70,19 @@ const updateMedicine = async (id: string, data: MedData) => {
    }
 }
 
+const deleteMedicine = async (id: string) => {
+   try {
+     const result = await prisma.medicines.delete({
+        where: {
+            id
+        }
+    })
+    return result
+   } catch (error:any) {
+    return {error:error.message}
+   }
+}
+
 
 
 export const medicineService = {
@@ -77,4 +90,5 @@ export const medicineService = {
     getAllMedicine,
     getMedicineByID,
     updateMedicine,
+    deleteMedicine,
 }
