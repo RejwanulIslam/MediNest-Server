@@ -7,6 +7,7 @@ import { medicineRouter } from "./modules/medicine/medicine.router";
 import { categorieRouter } from "./modules/categorie/categorie.router";
 import { orderRouter } from "./modules/order/order.router";
 import { reviedRouter } from "./modules/review/review.router";
+import { userRouter } from "./modules/user/user.route";
 export const app = express()
 
 app.use(express.json())
@@ -18,6 +19,7 @@ app.use('/',medicineRouter)
 app.use('/',categorieRouter)
 app.use('/',orderRouter)
 app.use('/',reviedRouter)
+app.use('/',userRouter)
 
 
 app.get("/", (req: Request, res: Response) => {
