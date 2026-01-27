@@ -10,6 +10,18 @@ const getAllUser= async (req: Request, res: Response) => {
     }
 }
 
+const updateUser = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+        const { status } = req.body
+        const result = await userService.updateUser(id as string, status)
+        res.send(result)
+    } catch (error: any) {
+        res.send({ error: error.message })
+    }
+}
+
 export const userController = {
-    getAllUser
+    getAllUser,
+    updateUser,
 }

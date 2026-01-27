@@ -9,6 +9,24 @@ const getAllUser = async () => {
     }
 }
 
+const updateUser = async (id: string, status:string) => {
+
+  try {
+      const result = await prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            status
+        }
+    })
+    return result
+  } catch (error:any) {
+    return {error:error.message}
+   }
+}
+
 export const userService = {
-    getAllUser
+    getAllUser,
+    updateUser,
 }
