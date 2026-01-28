@@ -7,8 +7,8 @@ const router=Router()
 
 
 
-router.get('/api/user',auth(),userController.getAllUser)
-router.patch('/api/user/:id',auth(),userController.updateUser)
+router.get('/api/user',auth(userRole.admin),userController.getAllUser)
+router.patch('/api/user/:id',auth(userRole.admin),userController.updateUser)
 
 
 export const userRouter=router
