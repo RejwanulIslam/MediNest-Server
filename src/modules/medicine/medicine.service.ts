@@ -1,3 +1,4 @@
+import { equal } from "node:assert"
 import { prisma } from "../../lib/prisma"
 import { MedData } from "../../types"
 
@@ -23,34 +24,76 @@ const addMedicine = async (data: MedData) => {
     }
 }
 
-const getAllMedicine = async (serch: string) => {
+const getAllMedicine = async (serch: string, category: string, minPrice: string, maxPrice: string, manufacturer: string) => {
     try {
-        const result = await prisma.medicines.findMany(
-           {
-            where:serch?{
-                OR: [
-                    {
-                        medicineName: {
-                            contains: serch,
-                            mode:"insensitive"
-                        }
-                    },
-                    {
-                        detels: {
-                            contains: serch,
-                            mode:"insensitive"
-                        }
-                    },
-                    {
-                        manufacturer: {
-                            contains: serch,
-                            mode:"insensitive"
-                        }
-                    },
-                ]
-            }:{},
+
+        const allSearchAndFilter: any = {}
+
+
+        if (serch) {
+
+            allSearchAndFilter.OR = [
+                {
+                    medicineName: {
+                        contains: serch,
+                        mode: "insensitive"
+                    }
+                },
+                {
+                    detels: {
+                        contains: serch,
+                        mode: "insensitive"
+                    }
+                },
+                {
+                    manufacturer: {
+                        contains: serch,
+                        mode: "insensitive"
+                    }
+                },
+            ]
         }
-    )
+
+        if (category) {
+            const categorie = await prisma.categories.findFirst({
+                where: {
+                    categorieName: category
+                }
+            })
+
+            console.log('categorie', categorie)
+            if (!categorie) {
+                return []
+
+            }
+
+            if (categorie) {
+                allSearchAndFilter.categorieId = categorie.id
+            }
+        }
+
+
+
+        if (minPrice || maxPrice) {
+            allSearchAndFilter.price = {}
+            if (minPrice) {
+                allSearchAndFilter.price.gte = Number(minPrice)
+            }
+            if (maxPrice) {
+                allSearchAndFilter.price.lte = Number(maxPrice)
+            }
+        }
+
+        if (manufacturer) {
+            allSearchAndFilter.manufacturer = {
+                contains: manufacturer,
+                mode: "insensitive"
+            }
+        }
+
+        const result = await prisma.medicines.findMany({
+            where: allSearchAndFilter
+        })
         return result
     } catch (error: any) {
         return { error: error.message }

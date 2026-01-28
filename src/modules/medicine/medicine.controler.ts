@@ -14,8 +14,8 @@ const addMedicine = async (req: Request, res: Response) => {
 
 const getAllMedicine = async (req: Request, res: Response) => {
   try {
-    const { serch } = req.query
-    const result = await medicineService.getAllMedicine(serch as string)
+    const { serch,category,minPrice,maxPrice,manufacturer } = req.query
+    const result = await medicineService.getAllMedicine(serch as string,category as string,minPrice as string,maxPrice as string,manufacturer as string)
     res.send(result)
   } catch (error: any) {
     res.send({ error: error.message })
