@@ -1,4 +1,5 @@
 {
+  
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
@@ -6,15 +7,16 @@
     "outDir": "./dist",
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "ESNext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "target": "ES2023",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     // "ignoreDeprecations": "6.0",
-    "types": [],
+    // "types": [],
     // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
+    "lib": ["esnext"],
+    "types": ["node"],
     // and npm install -D @types/node
     // Other Outputs
     "sourceMap": true,
@@ -39,7 +41,12 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "generated/prisma"]
-
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "generated/prisma"
+  ]
 }
