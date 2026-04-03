@@ -17,8 +17,9 @@ const addReview = async (req: Request, res: Response) => {
 }
 
 const getAllReview = async (req: Request, res: Response) => {
+   const {id}=req.params
    try {
-     const result = await reviewService.getAllReview()
+     const result = await reviewService.getAllReview(id as string)
     res.send(result)
    } catch (error: any) {
        res.send({error:error.message}) 

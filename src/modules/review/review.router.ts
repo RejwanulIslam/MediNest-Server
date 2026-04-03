@@ -8,7 +8,7 @@ const router=Router()
 
 
 router.post('/api/review',auth(),reviewControler.addReview)
-router.get('/api/review',auth(),reviewControler.getAllReview)
+router.get('/api/review/:id',auth(),reviewControler.getAllReview)
 
 
 export const reviedRouter=router

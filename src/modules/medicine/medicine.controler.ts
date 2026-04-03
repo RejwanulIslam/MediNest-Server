@@ -35,6 +35,7 @@ const updateMedicine = async (req: Request, res: Response) => {
     const { id } = req.params
     const data = req.body
     const result = await medicineService.updateMedicine(id as string, data)
+    console.log(result)
     res.send(result)
   } catch (error: any) {
     res.send({ error: error.message })

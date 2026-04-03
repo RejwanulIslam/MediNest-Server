@@ -4,7 +4,7 @@ import { prisma } from "./lib/prisma"
 import { app } from "./app"
 
 async function main() {
-  const port=process.env.PORT
+  const port=process.env.PORT!
   try {
     await prisma.$connect()
     app.listen(port, () => {

@@ -92,7 +92,10 @@ const getAllMedicine = async (serch: string, category: string, minPrice: string,
         }
 
         const result = await prisma.medicines.findMany({
-            where: allSearchAndFilter
+            where: allSearchAndFilter,
+            include:{
+                categorie:true
+            }
         })
         return result
     } catch (error: any) {
@@ -106,6 +109,9 @@ const getMedicineByID = async (id: string) => {
         const result = await prisma.medicines.findUnique({
             where: {
                 id
+            },
+            include:{
+                categorie:true
             }
         })
         return result

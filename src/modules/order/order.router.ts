@@ -6,9 +6,9 @@ const router=Router()
 
 
 router.post('/api/orders',auth(),orderControler.addOrder)
-router.get('/api/orders',auth(userRole.admin),orderControler.getAllOrder)
-router.get('/api/orders/:id',auth(),orderControler.getOrderByID)
-router.patch('/api/orders/:id',auth(userRole.admin,userRole.seler),orderControler.updateOrder)
+router.get('/api/orders',auth(),orderControler.getAllOrder)
+router.get('/api/orders/:id',orderControler.getOrderByID)
+router.patch('/api/orders',auth(userRole.admin,userRole.seler),orderControler.updateOrder)
 router.delete('/api/orders/:id',auth(userRole.admin),orderControler.updateOrder)
 
 

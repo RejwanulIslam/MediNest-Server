@@ -46,7 +46,6 @@ declare global {
             })
         }
       
-        console.log(session)
           next()
     }
 }

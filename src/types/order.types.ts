@@ -1,8 +1,11 @@
+import { orderStatus } from "../../generated/prisma/enums";
+
 export interface Order {
     id: string;
     customerId: string;
     productId: string;
-    shippindAddress: string;
+    shippingAddress: string;
     totalAmount: number;
-    status: string;
+    status: orderStatus;
+    items:[]
 }

@@ -7,9 +7,23 @@ const result= await prisma.categories.create({
   })
   return result
 }
+const getAllCatagoty=async()=>{
+const result= await prisma.categories.findMany()
+  return result
+}
+const deleteCatagoty=async(id:string)=>{
+const result= await prisma.categories.delete({
+  where:{
+    id
+  }
+})
+  return result
+}
 
 
 
 export const categorieService={
-    addCatagoty
+    addCatagoty,
+    getAllCatagoty,
+    deleteCatagoty,
 }
