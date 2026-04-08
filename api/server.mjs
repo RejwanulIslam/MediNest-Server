@@ -1,10 +1,12 @@
+var __defProp = Object.defineProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
 // src/lib/prisma.ts
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
-
-// generated/prisma/client.ts
-import * as path from "path";
-import { fileURLToPath } from "url";
 
 // generated/prisma/internal/class.ts
 import * as runtime from "@prisma/client/runtime/client";
@@ -22,14 +24,14 @@ var config = {
 };
 config.runtimeDataModel = JSON.parse('{"models":{"Categories":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"categorieName","kind":"scalar","type":"String"},{"name":"medicines","kind":"object","type":"Medicines","relationName":"CategoriesToMedicines"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":null},"Medicines":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"medicineName","kind":"scalar","type":"String"},{"name":"price","kind":"scalar","type":"Int"},{"name":"image","kind":"scalar","type":"String"},{"name":"stock","kind":"scalar","type":"Int"},{"name":"detels","kind":"scalar","type":"String"},{"name":"manufacturer","kind":"scalar","type":"String"},{"name":"sellerId","kind":"scalar","type":"String"},{"name":"seller","kind":"object","type":"User","relationName":"MedicinesToUser"},{"name":"categorieId","kind":"scalar","type":"String"},{"name":"categorie","kind":"object","type":"Categories","relationName":"CategoriesToMedicines"},{"name":"orderItems","kind":"object","type":"OrderItem","relationName":"MedicinesToOrderItem"},{"name":"reviews","kind":"object","type":"Reviews","relationName":"MedicinesToReviews"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"cards","kind":"object","type":"Card","relationName":"CardToMedicines"}],"dbName":null},"Orders":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"customerId","kind":"scalar","type":"String"},{"name":"customer","kind":"object","type":"User","relationName":"OrdersToUser"},{"name":"items","kind":"object","type":"OrderItem","relationName":"OrderItemToOrders"},{"name":"shippingAddress","kind":"scalar","type":"String"},{"name":"totalAmount","kind":"scalar","type":"Int"},{"name":"status","kind":"enum","type":"orderStatus"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":null},"OrderItem":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"orderId","kind":"scalar","type":"String"},{"name":"order","kind":"object","type":"Orders","relationName":"OrderItemToOrders"},{"name":"productId","kind":"scalar","type":"String"},{"name":"product","kind":"object","type":"Medicines","relationName":"MedicinesToOrderItem"},{"name":"quantity","kind":"scalar","type":"Int"}],"dbName":null},"Reviews":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"customerId","kind":"scalar","type":"String"},{"name":"customer","kind":"object","type":"User","relationName":"ReviewsToUser"},{"name":"productId","kind":"scalar","type":"String"},{"name":"product","kind":"object","type":"Medicines","relationName":"MedicinesToReviews"},{"name":"rating","kind":"scalar","type":"Int"},{"name":"comment","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":null},"Card":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"customerId","kind":"scalar","type":"String"},{"name":"customer","kind":"object","type":"User","relationName":"CardToUser"},{"name":"productId","kind":"scalar","type":"String"},{"name":"product","kind":"object","type":"Medicines","relationName":"CardToMedicines"},{"name":"quantity","kind":"scalar","type":"Int"}],"dbName":null},"User":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"email","kind":"scalar","type":"String"},{"name":"emailVerified","kind":"scalar","type":"Boolean"},{"name":"image","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"sessions","kind":"object","type":"Session","relationName":"SessionToUser"},{"name":"accounts","kind":"object","type":"Account","relationName":"AccountToUser"},{"name":"role","kind":"scalar","type":"String"},{"name":"medicines","kind":"object","type":"Medicines","relationName":"MedicinesToUser"},{"name":"orders","kind":"object","type":"Orders","relationName":"OrdersToUser"},{"name":"reviews","kind":"object","type":"Reviews","relationName":"ReviewsToUser"},{"name":"status","kind":"scalar","type":"String"},{"name":"cards","kind":"object","type":"Card","relationName":"CardToUser"}],"dbName":"user"},"Session":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"token","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"ipAddress","kind":"scalar","type":"String"},{"name":"userAgent","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"SessionToUser"}],"dbName":"session"},"Account":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"accountId","kind":"scalar","type":"String"},{"name":"providerId","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"user","kind":"object","type":"User","relationName":"AccountToUser"},{"name":"accessToken","kind":"scalar","type":"String"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"idToken","kind":"scalar","type":"String"},{"name":"accessTokenExpiresAt","kind":"scalar","type":"DateTime"},{"name":"refreshTokenExpiresAt","kind":"scalar","type":"DateTime"},{"name":"scope","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"account"},"Verification":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"identifier","kind":"scalar","type":"String"},{"name":"value","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"}],"dbName":"verification"}},"enums":{},"types":{}}');
 async function decodeBase64AsWasm(wasmBase64) {
-  const { Buffer } = await import("buffer");
-  const wasmArray = Buffer.from(wasmBase64, "base64");
+  const { Buffer: Buffer2 } = await import("buffer");
+  const wasmArray = Buffer2.from(wasmBase64, "base64");
   return new WebAssembly.Module(wasmArray);
 }
 config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.mjs"),
+  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.js"),
   getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.mjs");
+    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.js");
     return await decodeBase64AsWasm(wasm);
   },
   importName: "./query_compiler_fast_bg.js"
@@ -39,12 +41,78 @@ function getPrismaClientClass() {
 }
 
 // generated/prisma/internal/prismaNamespace.ts
+var prismaNamespace_exports = {};
+__export(prismaNamespace_exports, {
+  AccountScalarFieldEnum: () => AccountScalarFieldEnum,
+  AnyNull: () => AnyNull2,
+  CardScalarFieldEnum: () => CardScalarFieldEnum,
+  CategoriesScalarFieldEnum: () => CategoriesScalarFieldEnum,
+  DbNull: () => DbNull2,
+  Decimal: () => Decimal2,
+  JsonNull: () => JsonNull2,
+  MedicinesScalarFieldEnum: () => MedicinesScalarFieldEnum,
+  ModelName: () => ModelName,
+  NullTypes: () => NullTypes2,
+  NullsOrder: () => NullsOrder,
+  OrderItemScalarFieldEnum: () => OrderItemScalarFieldEnum,
+  OrdersScalarFieldEnum: () => OrdersScalarFieldEnum,
+  PrismaClientInitializationError: () => PrismaClientInitializationError2,
+  PrismaClientKnownRequestError: () => PrismaClientKnownRequestError2,
+  PrismaClientRustPanicError: () => PrismaClientRustPanicError2,
+  PrismaClientUnknownRequestError: () => PrismaClientUnknownRequestError2,
+  PrismaClientValidationError: () => PrismaClientValidationError2,
+  QueryMode: () => QueryMode,
+  ReviewsScalarFieldEnum: () => ReviewsScalarFieldEnum,
+  SessionScalarFieldEnum: () => SessionScalarFieldEnum,
+  SortOrder: () => SortOrder,
+  Sql: () => Sql2,
+  TransactionIsolationLevel: () => TransactionIsolationLevel,
+  UserScalarFieldEnum: () => UserScalarFieldEnum,
+  VerificationScalarFieldEnum: () => VerificationScalarFieldEnum,
+  defineExtension: () => defineExtension,
+  empty: () => empty2,
+  getExtensionContext: () => getExtensionContext,
+  join: () => join2,
+  prismaVersion: () => prismaVersion,
+  raw: () => raw2,
+  sql: () => sql
+});
 import * as runtime2 from "@prisma/client/runtime/client";
+var PrismaClientKnownRequestError2 = runtime2.PrismaClientKnownRequestError;
+var PrismaClientUnknownRequestError2 = runtime2.PrismaClientUnknownRequestError;
+var PrismaClientRustPanicError2 = runtime2.PrismaClientRustPanicError;
+var PrismaClientInitializationError2 = runtime2.PrismaClientInitializationError;
+var PrismaClientValidationError2 = runtime2.PrismaClientValidationError;
+var sql = runtime2.sqltag;
+var empty2 = runtime2.empty;
+var join2 = runtime2.join;
+var raw2 = runtime2.raw;
+var Sql2 = runtime2.Sql;
+var Decimal2 = runtime2.Decimal;
 var getExtensionContext = runtime2.Extensions.getExtensionContext;
+var prismaVersion = {
+  client: "7.3.0",
+  engine: "9d6ad21cbbceab97458517b147a6a09ff43aa735"
+};
 var NullTypes2 = {
   DbNull: runtime2.NullTypes.DbNull,
   JsonNull: runtime2.NullTypes.JsonNull,
   AnyNull: runtime2.NullTypes.AnyNull
+};
+var DbNull2 = runtime2.DbNull;
+var JsonNull2 = runtime2.JsonNull;
+var AnyNull2 = runtime2.AnyNull;
+var ModelName = {
+  Categories: "Categories",
+  Medicines: "Medicines",
+  Orders: "Orders",
+  OrderItem: "OrderItem",
+  Reviews: "Reviews",
+  Card: "Card",
+  User: "User",
+  Session: "Session",
+  Account: "Account",
+  Verification: "Verification"
 };
 var TransactionIsolationLevel = runtime2.makeStrictEnum({
   ReadUncommitted: "ReadUncommitted",
@@ -52,10 +120,114 @@ var TransactionIsolationLevel = runtime2.makeStrictEnum({
   RepeatableRead: "RepeatableRead",
   Serializable: "Serializable"
 });
+var CategoriesScalarFieldEnum = {
+  id: "id",
+  categorieName: "categorieName",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+};
+var MedicinesScalarFieldEnum = {
+  id: "id",
+  medicineName: "medicineName",
+  price: "price",
+  image: "image",
+  stock: "stock",
+  detels: "detels",
+  manufacturer: "manufacturer",
+  sellerId: "sellerId",
+  categorieId: "categorieId",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+};
+var OrdersScalarFieldEnum = {
+  id: "id",
+  customerId: "customerId",
+  shippingAddress: "shippingAddress",
+  totalAmount: "totalAmount",
+  status: "status",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+};
+var OrderItemScalarFieldEnum = {
+  id: "id",
+  orderId: "orderId",
+  productId: "productId",
+  quantity: "quantity"
+};
+var ReviewsScalarFieldEnum = {
+  id: "id",
+  customerId: "customerId",
+  productId: "productId",
+  rating: "rating",
+  comment: "comment",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+};
+var CardScalarFieldEnum = {
+  id: "id",
+  customerId: "customerId",
+  productId: "productId",
+  quantity: "quantity"
+};
+var UserScalarFieldEnum = {
+  id: "id",
+  name: "name",
+  email: "email",
+  emailVerified: "emailVerified",
+  image: "image",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  role: "role",
+  status: "status"
+};
+var SessionScalarFieldEnum = {
+  id: "id",
+  expiresAt: "expiresAt",
+  token: "token",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  ipAddress: "ipAddress",
+  userAgent: "userAgent",
+  userId: "userId"
+};
+var AccountScalarFieldEnum = {
+  id: "id",
+  accountId: "accountId",
+  providerId: "providerId",
+  userId: "userId",
+  accessToken: "accessToken",
+  refreshToken: "refreshToken",
+  idToken: "idToken",
+  accessTokenExpiresAt: "accessTokenExpiresAt",
+  refreshTokenExpiresAt: "refreshTokenExpiresAt",
+  scope: "scope",
+  password: "password",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+};
+var VerificationScalarFieldEnum = {
+  id: "id",
+  identifier: "identifier",
+  value: "value",
+  expiresAt: "expiresAt",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+};
+var SortOrder = {
+  asc: "asc",
+  desc: "desc"
+};
+var QueryMode = {
+  default: "default",
+  insensitive: "insensitive"
+};
+var NullsOrder = {
+  first: "first",
+  last: "last"
+};
 var defineExtension = runtime2.Extensions.defineExtension;
 
 // generated/prisma/client.ts
-globalThis["__dirname"] = path.dirname(fileURLToPath(import.meta.url));
 var PrismaClient = getPrismaClientClass();
 
 // src/lib/prisma.ts
@@ -64,34 +236,26 @@ var adapter = new PrismaPg({ connectionString });
 var prisma = new PrismaClient({ adapter });
 
 // src/app.ts
-import express from "express";
+import express2 from "express";
 import cors from "cors";
 import { toNodeHandler } from "better-auth/node";
 
 // src/lib/auth.ts
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { oAuthProxy } from "better-auth/plugins";
 var auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: "sqlite"
+    provider: "postgresql"
   }),
-  secret: process.env.BETTER_AUTH_SECRET,
-  trustedOrigins: ["http://localhost:5000", "http://localhost:3000", "https://medi-nest-ten.vercel.app"],
+  baseURL: process.env.APP_URL,
+  trustedOrigins: [process.env.APP_URL, "http://localhost:3000"],
   session: {
     cookieCache: {
       enabled: true,
       maxAge: 5 * 60
       // 5 minutes
     }
-  },
-  advanced: {
-    cookiePrefix: "better-auth",
-    useSecureCookies: process.env.NODE_ENV === "production",
-    crossSubDomainCookies: {
-      enabled: false
-    },
-    disableCSRFCheck: true
-    // Allow requests without Origin header (Postman, mobile apps, etc.)
   },
   user: {
     additionalFields: {
@@ -112,12 +276,37 @@ var auth = betterAuth({
   },
   socialProviders: {
     google: {
-      accessType: "offline",
-      prompt: "select_account consent",
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      accessType: "offline",
+      prompt: "select_account consent"
     }
-  }
+  },
+  advanced: {
+    cookies: {
+      session_token: {
+        name: "session_token",
+        // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true
+        }
+      },
+      state: {
+        name: "session_token",
+        // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true
+        }
+      }
+    }
+  },
+  plugins: [oAuthProxy()]
 });
 
 // src/modules/medicine/medicine.router.ts
@@ -266,34 +455,34 @@ var medicineService = {
 };
 
 // src/modules/medicine/medicine.controler.ts
-var addMedicine2 = async (req, res) => {
+var addMedicine2 = async (req, res, next) => {
   try {
     const data = req.body;
     const result = await medicineService.addMedicine(data);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var getAllMedicine2 = async (req, res) => {
+var getAllMedicine2 = async (req, res, next) => {
   try {
     const { serch, category, minPrice, maxPrice, manufacturer } = req.query;
     const result = await medicineService.getAllMedicine(serch, category, minPrice, maxPrice, manufacturer);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var getMedicineByID2 = async (req, res) => {
+var getMedicineByID2 = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await medicineService.getMedicineByID(id);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var updateMedicine2 = async (req, res) => {
+var updateMedicine2 = async (req, res, next) => {
   try {
     const { id } = req.params;
     const data = req.body;
@@ -301,16 +490,16 @@ var updateMedicine2 = async (req, res) => {
     console.log(result);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var deleteMedicine2 = async (req, res) => {
+var deleteMedicine2 = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await medicineService.deleteMedicine(id);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
 var medicineControler = {
@@ -386,19 +575,31 @@ var categorieService = {
 };
 
 // src/modules/categorie/categorie.controler.ts
-var addCatagoty2 = async (req, res) => {
-  const { categorieName } = req.body;
-  const result = await categorieService.addCatagoty(categorieName);
-  res.send(result);
+var addCatagoty2 = async (req, res, next) => {
+  try {
+    const { categorieName } = req.body;
+    const result = await categorieService.addCatagoty(categorieName);
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
 };
-var getAllCatagoty2 = async (req, res) => {
-  const result = await categorieService.getAllCatagoty();
-  res.send(result);
+var getAllCatagoty2 = async (req, res, next) => {
+  try {
+    const result = await categorieService.getAllCatagoty();
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
 };
-var deleteCatagoty2 = async (req, res) => {
-  const { id } = req.params;
-  const result = await categorieService.deleteCatagoty(id);
-  res.send(result);
+var deleteCatagoty2 = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await categorieService.deleteCatagoty(id);
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
 };
 var categorieControler = {
   addCatagoty: addCatagoty2,
@@ -426,15 +627,17 @@ var addOrder = async (data, userID) => {
           customerId: userID,
           shippingAddress,
           totalAmount,
-          status
+          status,
+          items: {
+            create: items.map((item) => ({
+              productId: item.productId,
+              quantity: item.quantity
+            }))
+          }
+        },
+        include: {
+          items: true
         }
-      });
-      await tx.orderItem.createMany({
-        data: items.map((item) => ({
-          orderId: order.id,
-          productId: item.productId,
-          quantity: item.quantity
-        }))
       });
       return order;
     });
@@ -457,10 +660,21 @@ var getAllOrder = async () => {
   }
 };
 var getOrderByID = async (id) => {
+  console.log("getOrderByID service", id);
   try {
-    const result = await prisma.orders.findUnique({
+    const result = await prisma.orders.findMany({
       where: {
-        id
+        customerId: id
+      },
+      include: {
+        items: {
+          include: {
+            product: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: "desc"
       }
     });
     return result;
@@ -504,7 +718,7 @@ var orderService = {
 };
 
 // src/modules/order/order.controler.ts
-var addOrder2 = async (req, res) => {
+var addOrder2 = async (req, res, next) => {
   try {
     const data = req.body;
     const userID = req.user?.id;
@@ -514,27 +728,35 @@ var addOrder2 = async (req, res) => {
     const result = await orderService.addOrder(data, userID);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var getAllOrder2 = async (req, res) => {
+var getAllOrder2 = async (req, res, next) => {
   try {
     const result = await orderService.getAllOrder();
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var getOrderByID2 = async (req, res) => {
+var getOrderByID2 = async (req, res, next) => {
   try {
     const { id } = req.params;
+    console.log("right code now");
+    console.log(id);
     const result = await orderService.getOrderByID(id);
-    res.send(result);
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "No order found with this ID"
+      });
+    }
+    res.status(200).json(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var updateOrder2 = async (req, res) => {
+var updateOrder2 = async (req, res, next) => {
   try {
     const { id } = req.body;
     const { status } = req.body;
@@ -542,16 +764,16 @@ var updateOrder2 = async (req, res) => {
     const result = await orderService.updateOrder(id, status);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var deleteOrder2 = async (req, res) => {
+var deleteOrder2 = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await orderService.deleteOrder(id);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
 var orderControler = {
@@ -566,7 +788,7 @@ var orderControler = {
 var router3 = Router3();
 router3.post("/api/orders", auth_default(), orderControler.addOrder);
 router3.get("/api/orders", auth_default(), orderControler.getAllOrder);
-router3.get("/api/orders/:id", auth_default(), orderControler.getOrderByID);
+router3.get("/api/orders/:id", orderControler.getOrderByID);
 router3.patch("/api/orders", auth_default("ADMIN" /* admin */, "SELER" /* seler */), orderControler.updateOrder);
 router3.delete("/api/orders/:id", auth_default("ADMIN" /* admin */), orderControler.updateOrder);
 var orderRouter = router3;
@@ -609,7 +831,7 @@ var reviewService = {
 };
 
 // src/modules/review/review.controler.ts
-var addReview2 = async (req, res) => {
+var addReview2 = async (req, res, next) => {
   try {
     const data = req.body;
     const id = req.user?.id;
@@ -619,16 +841,16 @@ var addReview2 = async (req, res) => {
     const result = await reviewService.addReview(data, id);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var getAllReview2 = async (req, res) => {
+var getAllReview2 = async (req, res, next) => {
   const { id } = req.params;
   try {
     const result = await reviewService.getAllReview(id);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
 var reviewControler = {
@@ -694,24 +916,24 @@ var userService = {
 };
 
 // src/modules/user/user.controller.ts
-var getAllUser2 = async (req, res) => {
+var getAllUser2 = async (req, res, next) => {
   try {
     const result = await userService.getAllUser();
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var updateUser2 = async (req, res) => {
+var updateUser2 = async (req, res, next) => {
   try {
     const { id, status } = req.body;
     const result = await userService.updateUser(id, status);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
-var manageProfile2 = async (req, res) => {
+var manageProfile2 = async (req, res, next) => {
   try {
     const { id } = req.params;
     const data = req.body;
@@ -719,7 +941,7 @@ var manageProfile2 = async (req, res) => {
     const result = await userService.manageProfile(id, data);
     res.send(result);
   } catch (error) {
-    res.send({ error: error.message });
+    next(error);
   }
 };
 var userController = {
@@ -776,20 +998,32 @@ var cardService = {
 };
 
 // src/modules/card/card.controler.ts
-var addCard2 = async (req, res) => {
-  const data = req.body;
-  const result = await cardService.addCard(data);
-  res.send(result);
+var addCard2 = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const result = await cardService.addCard(data);
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
 };
-var deleteCard2 = async (req, res) => {
-  const ids = req.body.ids;
-  console.log(ids);
-  const result = await cardService.deleteCard(ids);
-  res.send(result);
+var deleteCard2 = async (req, res, next) => {
+  try {
+    const ids = req.body.ids;
+    console.log(ids);
+    const result = await cardService.deleteCard(ids);
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
 };
-var getAllCard2 = async (req, res) => {
-  const result = await cardService.getAllCard();
-  res.send(result);
+var getAllCard2 = async (req, res, next) => {
+  try {
+    const result = await cardService.getAllCard();
+    res.send(result);
+  } catch (error) {
+    next(error);
+  }
 };
 var cardControler = {
   addCard: addCard2,
@@ -804,18 +1038,432 @@ router6.delete("/deletecard", cardControler.deleteCard);
 router6.get("/getcard", cardControler.getAllCard);
 var cardRouter = router6;
 
+// src/modules/payment/payment.router.ts
+import express from "express";
+
+// src/Errors/AppError.ts
+var AppError = class extends Error {
+  statusCode;
+  isOperational;
+  errors;
+  constructor(message, statusCode = 500, errors) {
+    super(message);
+    this.statusCode = statusCode;
+    this.isOperational = true;
+    this.errors = errors;
+    this.name = "AppError";
+    Error.captureStackTrace(this, this.constructor);
+  }
+};
+
+// src/modules/payment/payment.controller.ts
+import Stripe from "stripe";
+var stripeSecretKey = process.env["STRIPE_SECRET_KEY"];
+var stripeWebhookSecret = process.env["STRIPE_WEBHOOK_SECRET"];
+if (!stripeSecretKey) throw new AppError("STRIPE_SECRET_KEY .env This is not given");
+if (!stripeWebhookSecret) throw new AppError("STRIPE_WEBHOOK_SECRET .env This is not given");
+var stripe = new Stripe(stripeSecretKey, {
+  apiVersion: "2023-10-16"
+});
+var createPaymentIntent = async (req, res, next) => {
+  try {
+    const { totalAmount, shippingAddress, phone, name, items } = req.body;
+    if (!totalAmount || !name || !phone || !shippingAddress || !items?.length) {
+      return next(new AppError("Not all necessary information was provided.", 400));
+    }
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(Number(totalAmount) * 100),
+      currency: "usd",
+      automatic_payment_methods: { enabled: true },
+      metadata: {
+        customerName: name,
+        phone,
+        shippingAddress,
+        itemCount: String(items.length)
+      }
+    });
+    console.log("\u{1F7E1} PaymentIntent create:", paymentIntent.id);
+    return res.status(200).json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error("\u274C Error:", error.message);
+    return next(error);
+  }
+};
+var handleWebhook = async (req, res, next) => {
+  const sig = req.headers["stripe-signature"];
+  if (!sig) {
+    return next(new AppError("Signature not found", 400));
+  }
+  let event;
+  try {
+    event = await stripe.webhooks.constructEventAsync(
+      req.body,
+      sig,
+      stripeWebhookSecret
+    );
+  } catch (err) {
+    console.error("\u274C Webhook error:", err.message);
+    return next(err);
+  }
+  if (event.type === "payment_intent.succeeded") {
+    const intent = event.data.object;
+  }
+  if (event.type === "payment_intent.payment_failed") {
+    const intent = event.data.object;
+    console.warn(intent.last_payment_error?.message);
+  }
+  return res.json({ received: true });
+};
+
+// src/modules/payment/payment.router.ts
+var router7 = express.Router();
+router7.post("/create-intent", createPaymentIntent);
+router7.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  handleWebhook
+);
+var paymentrouter = router7;
+
+// src/Errors/errorMiddleware.ts
+import Stripe2 from "stripe";
+
+// node_modules/zod/v4/core/core.js
+var NEVER = Object.freeze({
+  status: "aborted"
+});
+// @__NO_SIDE_EFFECTS__
+function $constructor(name, initializer3, params) {
+  function init(inst, def) {
+    if (!inst._zod) {
+      Object.defineProperty(inst, "_zod", {
+        value: {
+          def,
+          constr: _,
+          traits: /* @__PURE__ */ new Set()
+        },
+        enumerable: false
+      });
+    }
+    if (inst._zod.traits.has(name)) {
+      return;
+    }
+    inst._zod.traits.add(name);
+    initializer3(inst, def);
+    const proto = _.prototype;
+    const keys = Object.keys(proto);
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+      if (!(k in inst)) {
+        inst[k] = proto[k].bind(inst);
+      }
+    }
+  }
+  const Parent = params?.Parent ?? Object;
+  class Definition extends Parent {
+  }
+  Object.defineProperty(Definition, "name", { value: name });
+  function _(def) {
+    var _a2;
+    const inst = params?.Parent ? new Definition() : this;
+    init(inst, def);
+    (_a2 = inst._zod).deferred ?? (_a2.deferred = []);
+    for (const fn of inst._zod.deferred) {
+      fn();
+    }
+    return inst;
+  }
+  Object.defineProperty(_, "init", { value: init });
+  Object.defineProperty(_, Symbol.hasInstance, {
+    value: (inst) => {
+      if (params?.Parent && inst instanceof params.Parent)
+        return true;
+      return inst?._zod?.traits?.has(name);
+    }
+  });
+  Object.defineProperty(_, "name", { value: name });
+  return _;
+}
+
+// node_modules/zod/v4/core/util.js
+function jsonStringifyReplacer(_, value) {
+  if (typeof value === "bigint")
+    return value.toString();
+  return value;
+}
+function cached(getter) {
+  const set = false;
+  return {
+    get value() {
+      if (!set) {
+        const value = getter();
+        Object.defineProperty(this, "value", { value });
+        return value;
+      }
+      throw new Error("cached value already set");
+    }
+  };
+}
+var captureStackTrace = "captureStackTrace" in Error ? Error.captureStackTrace : (..._args) => {
+};
+var allowsEval = cached(() => {
+  if (typeof navigator !== "undefined" && navigator?.userAgent?.includes("Cloudflare")) {
+    return false;
+  }
+  try {
+    const F = Function;
+    new F("");
+    return true;
+  } catch (_) {
+    return false;
+  }
+});
+var NUMBER_FORMAT_RANGES = {
+  safeint: [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+  int32: [-2147483648, 2147483647],
+  uint32: [0, 4294967295],
+  float32: [-34028234663852886e22, 34028234663852886e22],
+  float64: [-Number.MAX_VALUE, Number.MAX_VALUE]
+};
+
+// node_modules/zod/v4/core/errors.js
+var initializer = (inst, def) => {
+  inst.name = "$ZodError";
+  Object.defineProperty(inst, "_zod", {
+    value: inst._zod,
+    enumerable: false
+  });
+  Object.defineProperty(inst, "issues", {
+    value: def,
+    enumerable: false
+  });
+  inst.message = JSON.stringify(def, jsonStringifyReplacer, 2);
+  Object.defineProperty(inst, "toString", {
+    value: () => inst.message,
+    enumerable: false
+  });
+};
+var $ZodError = $constructor("$ZodError", initializer);
+var $ZodRealError = $constructor("$ZodError", initializer, { Parent: Error });
+function flattenError(error, mapper = (issue2) => issue2.message) {
+  const fieldErrors = {};
+  const formErrors = [];
+  for (const sub of error.issues) {
+    if (sub.path.length > 0) {
+      fieldErrors[sub.path[0]] = fieldErrors[sub.path[0]] || [];
+      fieldErrors[sub.path[0]].push(mapper(sub));
+    } else {
+      formErrors.push(mapper(sub));
+    }
+  }
+  return { formErrors, fieldErrors };
+}
+function formatError(error, mapper = (issue2) => issue2.message) {
+  const fieldErrors = { _errors: [] };
+  const processError = (error2) => {
+    for (const issue2 of error2.issues) {
+      if (issue2.code === "invalid_union" && issue2.errors.length) {
+        issue2.errors.map((issues) => processError({ issues }));
+      } else if (issue2.code === "invalid_key") {
+        processError({ issues: issue2.issues });
+      } else if (issue2.code === "invalid_element") {
+        processError({ issues: issue2.issues });
+      } else if (issue2.path.length === 0) {
+        fieldErrors._errors.push(mapper(issue2));
+      } else {
+        let curr = fieldErrors;
+        let i = 0;
+        while (i < issue2.path.length) {
+          const el = issue2.path[i];
+          const terminal = i === issue2.path.length - 1;
+          if (!terminal) {
+            curr[el] = curr[el] || { _errors: [] };
+          } else {
+            curr[el] = curr[el] || { _errors: [] };
+            curr[el]._errors.push(mapper(issue2));
+          }
+          curr = curr[el];
+          i++;
+        }
+      }
+    }
+  };
+  processError(error);
+  return fieldErrors;
+}
+
+// node_modules/zod/v4/core/regexes.js
+var dateSource = `(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))`;
+var date = /* @__PURE__ */ new RegExp(`^${dateSource}$`);
+
+// node_modules/zod/v4/core/registries.js
+var _a;
+var $ZodRegistry = class {
+  constructor() {
+    this._map = /* @__PURE__ */ new WeakMap();
+    this._idmap = /* @__PURE__ */ new Map();
+  }
+  add(schema, ..._meta) {
+    const meta = _meta[0];
+    this._map.set(schema, meta);
+    if (meta && typeof meta === "object" && "id" in meta) {
+      this._idmap.set(meta.id, schema);
+    }
+    return this;
+  }
+  clear() {
+    this._map = /* @__PURE__ */ new WeakMap();
+    this._idmap = /* @__PURE__ */ new Map();
+    return this;
+  }
+  remove(schema) {
+    const meta = this._map.get(schema);
+    if (meta && typeof meta === "object" && "id" in meta) {
+      this._idmap.delete(meta.id);
+    }
+    this._map.delete(schema);
+    return this;
+  }
+  get(schema) {
+    const p = schema._zod.parent;
+    if (p) {
+      const pm = { ...this.get(p) ?? {} };
+      delete pm.id;
+      const f = { ...pm, ...this._map.get(schema) };
+      return Object.keys(f).length ? f : void 0;
+    }
+    return this._map.get(schema);
+  }
+  has(schema) {
+    return this._map.has(schema);
+  }
+};
+function registry() {
+  return new $ZodRegistry();
+}
+(_a = globalThis).__zod_globalRegistry ?? (_a.__zod_globalRegistry = registry());
+var globalRegistry = globalThis.__zod_globalRegistry;
+
+// node_modules/zod/v4/classic/errors.js
+var initializer2 = (inst, issues) => {
+  $ZodError.init(inst, issues);
+  inst.name = "ZodError";
+  Object.defineProperties(inst, {
+    format: {
+      value: (mapper) => formatError(inst, mapper)
+      // enumerable: false,
+    },
+    flatten: {
+      value: (mapper) => flattenError(inst, mapper)
+      // enumerable: false,
+    },
+    addIssue: {
+      value: (issue2) => {
+        inst.issues.push(issue2);
+        inst.message = JSON.stringify(inst.issues, jsonStringifyReplacer, 2);
+      }
+      // enumerable: false,
+    },
+    addIssues: {
+      value: (issues2) => {
+        inst.issues.push(...issues2);
+        inst.message = JSON.stringify(inst.issues, jsonStringifyReplacer, 2);
+      }
+      // enumerable: false,
+    },
+    isEmpty: {
+      get() {
+        return inst.issues.length === 0;
+      }
+      // enumerable: false,
+    }
+  });
+};
+var ZodError = $constructor("ZodError", initializer2);
+var ZodRealError = $constructor("ZodError", initializer2, {
+  Parent: Error
+});
+
+// src/Errors/PrismaError.ts
+function handlePrismaError(err) {
+  switch (err.code) {
+    case "P2002": {
+      const field = err.meta?.target?.join(", ");
+      return new AppError(
+        `This ${field} Already in use`,
+        409
+      );
+    }
+    case "P2025":
+      return new AppError("Information not found", 404);
+    case "P2003":
+      return new AppError("Related information does not exist", 400);
+    case "P2014":
+      return new AppError("Missed the necessary relationship", 400);
+    default:
+      return new AppError("There was a database problem.", 500);
+  }
+}
+
+// src/Errors/stripeError.ts
+function handleStripeError(err) {
+  switch (err.type) {
+    case "StripeCardError":
+      return new AppError(err.message ?? "Card payment failed", 402);
+    case "StripeInvalidRequestError":
+      return new AppError("Payment information is incorrect", 400);
+    case "StripeAuthenticationError":
+      return new AppError("Payment service is temporarily closed", 503);
+    case "StripeRateLimitError":
+      return new AppError("Too many requests, please try again later", 429);
+    case "StripeConnectionError":
+    case "StripeAPIError":
+      return new AppError("There was a problem with payment, please try again later.", 502);
+    default:
+      return new AppError("payment failed", 500);
+  }
+}
+
+// src/Errors/errorMiddleware.ts
+function errorMiddleware(err, req, res, next) {
+  let error;
+  if (err instanceof AppError) {
+    error = err;
+  } else if (err instanceof prismaNamespace_exports.PrismaClientKnownRequestError) {
+    error = handlePrismaError(err);
+  } else if (err instanceof Stripe2.errors.StripeError) {
+    error = handleStripeError(err);
+  } else if (err instanceof ZodError) {
+    error = new AppError("Data verification failed", 422, err.flatten().fieldErrors);
+  } else if (err instanceof Error) {
+    error = new AppError(err.message, 500);
+  } else {
+    error = new AppError("An unknown problem has occurred", 500);
+  }
+  const isProd = process.env.NODE_ENV === "production";
+  if (isProd && error.statusCode === 500) {
+    error = new AppError("There is a problem with the server", 500);
+  }
+  res.status(error.statusCode).json({
+    success: false,
+    statusCode: error.statusCode,
+    message: error.message,
+    ...error.errors && { errors: error.errors },
+    ...!isProd && { stack: error.stack }
+  });
+}
+
 // src/app.ts
-var app = express();
-app.use(express.json());
+var app = express2();
 var allowedOrigins = [
-  process.env.APP_URL || "http://localhost:3000"
-  // process.env.PROD_APP_URL, // Production frontend URL
+  process.env.APP_URL,
+  "http://localhost:3000"
 ].filter(Boolean);
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
-      const isAllowed = allowedOrigins.includes(origin) || /^https:\/\/next-blog-client.*\.vercel\.app$/.test(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin);
+      const isAllowed = allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin);
       if (isAllowed) {
         callback(null, true);
       } else {
@@ -828,13 +1476,20 @@ app.use(
     exposedHeaders: ["Set-Cookie"]
   })
 );
+app.use(
+  "/api/payment/webhook",
+  express2.raw({ type: "application/json" })
+);
+app.use(express2.json());
 app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.use("/api/payment", paymentrouter);
 app.use("/", medicineRouter);
 app.use("/", categorieRouter);
 app.use("/", orderRouter);
 app.use("/", reviedRouter);
 app.use("/", userRouter);
 app.use("/", cardRouter);
+app.use(errorMiddleware);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

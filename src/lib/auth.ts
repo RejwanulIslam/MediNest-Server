@@ -1,15 +1,16 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
+import { oAuthProxy } from "better-auth/plugins";
 
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: "sqlite",
+    provider: "postgresql",
 
   }),
-  secret: process.env.BETTER_AUTH_SECRET,
-  trustedOrigins: ["http://localhost:5000", "http://localhost:3000", "https://medi-nest-ten.vercel.app"],
+  baseURL: process.env.APP_URL,
+  trustedOrigins: [process.env.APP_URL!,"http://localhost:3000"],
 
   session: {
     cookieCache: {
@@ -17,15 +18,6 @@ export const auth = betterAuth({
       maxAge: 5 * 60, // 5 minutes
     },
   },
-  advanced: {
-    cookiePrefix: "better-auth",
-    useSecureCookies: process.env.NODE_ENV === "production",
-    crossSubDomainCookies: {
-      enabled: false,
-    },
-    disableCSRFCheck: true, // Allow requests without Origin header (Postman, mobile apps, etc.)
-  },
-
 
   user: {
     additionalFields: {
@@ -46,14 +38,39 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+ 
   socialProviders: {
     google: {
-      accessType: "offline",
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+     accessType: "offline",
       prompt: "select_account consent",
-      clientId: process.env.GOOGLE_CLIENT_ID! as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
     },
   },
+    advanced: {
+    cookies: {
+      session_token: {
+        name: "session_token", // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
+        },
+      },
+      state: {
+        name: "session_token", // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
+        },
+      },
+    },
+  },
+
+  plugins: [oAuthProxy()],
 
 });
 

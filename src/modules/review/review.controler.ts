@@ -1,32 +1,31 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { reviewService } from "./review.service"
-import { send } from "node:process"
 
-const addReview = async (req: Request, res: Response) => {
+const addReview = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data = req.body
-        const id=req.user?.id
-        if(!id){
-           return res.send("your user id is null")
+        const id = req.user?.id
+        if (!id) {
+            return res.send("your user id is null")
         }
-        const result = await reviewService.addReview(data,id)
+        const result = await reviewService.addReview(data, id)
         res.send(result)
     } catch (error: any) {
-       res.send({error:error.message}) 
+        next(error)
     }
 }
 
-const getAllReview = async (req: Request, res: Response) => {
-   const {id}=req.params
-   try {
-     const result = await reviewService.getAllReview(id as string)
-    res.send(result)
-   } catch (error: any) {
-       res.send({error:error.message}) 
+const getAllReview = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params
+    try {
+        const result = await reviewService.getAllReview(id as string)
+        res.send(result)
+    } catch (error: any) {
+        next(error)
     }
 }
 
 export const reviewControler = {
-   addReview,
-   getAllReview,
+    addReview,
+    getAllReview,
 }

@@ -1,8 +1,8 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { orderService } from "./order.service"
 
 
-const addOrder = async (req: Request, res: Response) => {
+const addOrder = async (req: Request, res: Response,next:NextFunction) => {
     try {
         const data = req.body
         const userID = req.user?.id
@@ -12,19 +12,19 @@ const addOrder = async (req: Request, res: Response) => {
         const result = await orderService.addOrder(data, userID)
         res.send(result)
     } catch (error: any) {
-        res.send({ error: error.message })
+        next(error)
     }
 }
 
-const getAllOrder = async (req: Request, res: Response) => {
+const getAllOrder = async (req: Request, res: Response,next:NextFunction) => {
     try {
         const result = await orderService.getAllOrder()
         res.send(result)
     } catch (error: any) {
-        res.send({ error: error.message })
+        next(error)
     }
 }
-const getOrderByID = async (req: Request, res: Response) => {
+const getOrderByID = async (req: Request, res: Response,next:NextFunction) => {
     try {
         const { id } = req.params
         console.log("right code now")
@@ -38,10 +38,10 @@ const getOrderByID = async (req: Request, res: Response) => {
         }
         res.status(200).json(result);
     } catch (error: any) {
-        res.send({ error: error.message })
+        next(error)
     }
 }
-const updateOrder = async (req: Request, res: Response) => {
+const updateOrder = async (req: Request, res: Response,next:NextFunction) => {
     try {
         const { id } = req.body
         const { status } = req.body
@@ -49,17 +49,17 @@ const updateOrder = async (req: Request, res: Response) => {
         const result = await orderService.updateOrder(id as string, status)
         res.send(result)
     } catch (error: any) {
-        res.send({ error: error.message })
+        next(error)
     }
 }
 
-const deleteOrder = async (req: Request, res: Response) => {
+const deleteOrder = async (req: Request, res: Response,next:NextFunction) => {
     try {
         const { id } = req.params
         const result = await orderService.deleteOrder(id as string)
         res.send(result)
     } catch (error: any) {
-        res.send({ error: error.message })
+        next(error)
     }
 }
 

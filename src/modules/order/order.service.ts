@@ -44,11 +44,18 @@ const addOrder = async (data: Order, userID: string) => {
 
 const getAllOrder = async () => {
   try {
-    const result = await prisma.orderItem.findMany({
+    const result = await prisma.orders.findMany({
       include: {
-        order: true,
-        product: true
+        items: {
+          include: {
+            product: true
+          },
+        },
+        orderBy: {
+          createdAt: "desc"
+        }
       },
+
 
     })
     return result
@@ -85,14 +92,14 @@ const getOrderByID = async (id: string) => {
 const ggetOrderByID = async (customerId: string) => {
   console.log("Fetching orders for customerId:", customerId);
   try {
-    const result = await prisma.orders.findMany({ 
+    const result = await prisma.orders.findMany({
       where: {
-        customerId: customerId, 
+        customerId: customerId,
       },
-      
+
     });
 
-    return result; 
+    return result;
   } catch (error: any) {
     console.error("Prisma Error:", error.message);
     return { error: error.message };

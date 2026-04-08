@@ -1,26 +1,26 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { userService } from "./user.service"
 
-const getAllUser= async (req: Request, res: Response) => {
+const getAllUser= async (req: Request, res: Response,next:NextFunction) => {
    try {
      const result = await userService.getAllUser()
     res.send(result)
    } catch (error: any) {
-       res.send({error:error.message}) 
+    next(error)
     }
 }
 
-const updateUser = async (req: Request, res: Response) => {
+const updateUser = async (req: Request, res: Response,next:NextFunction) => {
     try {
         const { id,status } = req.body
         
         const result = await userService.updateUser(id as string, status)
         res.send(result)
     } catch (error: any) {
-        res.send({ error: error.message })
+    next(error)
     }
 }
-const manageProfile = async (req: Request, res: Response) => {
+const manageProfile = async (req: Request, res: Response,next:NextFunction) => {
     try {
         const { id} = req.params
         const data = req.body
@@ -30,7 +30,7 @@ const manageProfile = async (req: Request, res: Response) => {
         const result = await userService.manageProfile(id as string, data)
         res.send(result)
     } catch (error: any) {
-        res.send({ error: error.message })
+    next(error)
     }
 }
 

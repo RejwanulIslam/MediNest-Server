@@ -2,6 +2,7 @@
   
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
+     
     // File Layout
     // "rootDir": ".",
     "outDir": "./dist",
@@ -24,7 +25,7 @@
     "declarationMap": true,
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    "exactOptionalPropertyTypes":false,
     // Style Options
     // "noImplicitReturns": true,
     // "noImplicitOverride": true,
@@ -50,3 +51,4 @@
     "generated/prisma"
   ]
 }
+
